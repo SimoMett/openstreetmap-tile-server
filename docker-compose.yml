@@ -7,7 +7,7 @@ services:
     volumes:
       - osm-data:/data/database/
       - osm-tiles:/data/tiles/
-      - ./osm-updates:/data/updates
+      - ./osm-updates:/data/updates # edit this line as you like
     ports:
       - "8080:80"
       - "5432:5432"
