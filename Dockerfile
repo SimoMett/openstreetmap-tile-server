@@ -130,6 +130,10 @@ RUN chmod +x /usr/bin/openstreetmap-tiles-update-expire.sh \
 && ln -s /home/renderer/src/mod_tile/osmosis-db_replag /usr/bin/osmosis-db_replag \
 && echo "* * * * *   renderer    openstreetmap-tiles-update-expire.sh\n" >> /etc/crontab
 
+# Copy custom update script
+COPY autoimport-updates.sh /usr/bin/
+RUN chmod +x /usr/bin/autoimport-updates.sh
+
 # Configure PosgtreSQL
 COPY postgresql.custom.conf.tmpl /etc/postgresql/$PG_VERSION/main/
 RUN chown -R postgres:postgres /var/lib/postgresql \
