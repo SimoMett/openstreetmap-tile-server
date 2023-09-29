@@ -1,2 +1,2 @@
-docker run -v $1:/data/region.osm.pbf -v ~/ProgettoOsmosis/common-data/Firenze.poly:/data/region.poly -v osm-data:/data/database/ -v osm-tiles:/data/tiles/ overv/openstreetmap-tile-server import
+docker run -v $1:/data/region.osm.pbf -v osm-data:/data/database/ -v osm-tiles:/data/tiles/ overv/openstreetmap-tile-server import
 
