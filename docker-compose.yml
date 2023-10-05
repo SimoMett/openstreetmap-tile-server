@@ -11,6 +11,8 @@ services:
     ports:
       - "8080:80"
       - "5432:5432"
+    environment:
+      - THREADS=4
     command: "run"
 
 volumes:
