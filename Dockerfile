@@ -83,11 +83,10 @@ RUN apt-get update \
  renderd \
  sudo \
  vim \
- 
-# Install python libraries
  python3-requests \
  python3-pyosmium \
  python3-yaml \
+ nano \
 && apt-get clean autoclean \
 && apt-get autoremove --yes \
 && rm -rf /var/lib/{apt,dpkg,cache,log}/
@@ -134,7 +133,7 @@ COPY autoimport-updates.sh /usr/bin/
 RUN chmod +x /usr/bin/autoimport-updates.sh
 
 # Copy simplified-external-data.yml
-COPY simplified-external-data.yml /data/style/simplified-external-data.yml
+COPY simplified-external-data.yml /data/style/external-data.yml
 
 # Configure PosgtreSQL
 COPY postgresql.custom.conf.tmpl /etc/postgresql/$PG_VERSION/main/
