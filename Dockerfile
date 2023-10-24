@@ -133,6 +133,9 @@ RUN chmod +x /usr/bin/openstreetmap-tiles-update-expire.sh \
 COPY autoimport-updates.sh /usr/bin/
 RUN chmod +x /usr/bin/autoimport-updates.sh
 
+# Copy simplified-external-data.yml
+COPY simplified-external-data.yml /data/style/simplified-external-data.yml
+
 # Configure PosgtreSQL
 COPY postgresql.custom.conf.tmpl /etc/postgresql/$PG_VERSION/main/
 RUN chown -R postgres:postgres /var/lib/postgresql \
