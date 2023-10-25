@@ -128,13 +128,6 @@ RUN chmod +x /usr/bin/openstreetmap-tiles-update-expire.sh \
 && ln -s /home/renderer/src/mod_tile/osmosis-db_replag /usr/bin/osmosis-db_replag \
 && echo "* * * * *   renderer    openstreetmap-tiles-update-expire.sh\n" >> /etc/crontab
 
-# Copy custom update script
-COPY autoimport-updates.sh /usr/bin/
-RUN chmod +x /usr/bin/autoimport-updates.sh
-
-# Copy simplified-external-data.yml
-COPY simplified-external-data.yml /data/style/external-data.yml
-
 # Configure PosgtreSQL
 COPY postgresql.custom.conf.tmpl /etc/postgresql/$PG_VERSION/main/
 RUN chown -R postgres:postgres /var/lib/postgresql \
@@ -149,14 +142,14 @@ RUN mkdir -p /run/renderd/ \
   &&  mkdir  -p  /home/renderer/src/  \
   &&  chown  -R  renderer:  /data/  \
   &&  chown  -R  renderer:  /home/renderer/src/  \
-  &&  chown  -R  renderer:  /run/renderd  \
+  &&  chown  -R  renderer:  /run/renderd \
   &&  mv  /var/lib/postgresql/$PG_VERSION/main/  /data/database/postgres/  \
   &&  mv  /var/cache/renderd/tiles/            /data/tiles/     \
-  &&  chown  -R  renderer: /data/tiles \
-  &&  ln  -s  /data/database/postgres  /var/lib/postgresql/$PG_VERSION/main             \
-  &&  ln  -s  /data/style              /home/renderer/src/openstreetmap-carto  \
-  &&  ln  -s  /data/tiles              /var/cache/renderd/tiles                \
-;
+  &&  chown  -R  renderer: /data/tiles 
+RUN ln -s /data/database/postgres /var/lib/postgresql/$PG_VERSION/main
+COPY --from=compiler-stylesheet /root/openstreetmap-carto /data/style
+RUN ln  -s  /data/style /home/renderer/src/openstreetmap-carto
+RUN ln  -s  /data/tiles /var/cache/renderd/tiles
 
 RUN echo '[default] \n\
 URI=/tile/ \n\
@@ -170,7 +163,14 @@ MAXZOOM=20' >> /etc/renderd.conf \
 # Install helper script
 COPY --from=compiler-helper-script /home/renderer/src/regional /home/renderer/src/regional
 
-COPY --from=compiler-stylesheet /root/openstreetmap-carto /home/renderer/src/openstreetmap-carto-backup
+COPY --from=compiler-stylesheet /root/openstreetmap-carto /home/renderer/src/openstreetmap-carto
+
+# Copy custom update script
+COPY autoimport-updates.sh /usr/bin/
+RUN chmod +x /usr/bin/autoimport-updates.sh
+
+# Copy simplified-external-data.yml
+COPY simplified-external-data.yml /data/style/external-data.yml
 
 # Start running
 COPY run.sh /

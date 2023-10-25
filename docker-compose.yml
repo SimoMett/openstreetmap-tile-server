@@ -3,6 +3,7 @@ version: '3'
 services:
   map:
     build: ./
+    image: simomett/overv-osm-tile-server-fork
     volumes:
       - osm-data:/data/database/
       - osm-tiles:/data/tiles/

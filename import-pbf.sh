@@ -1,2 +1,2 @@
-docker run -v $1:/data/region.osm.pbf -v osm-data:/data/database/ -v osm-tiles:/data/tiles/ openstreetmap-tile-server-map import
+docker run -v $1:/data/region.osm.pbf -v osm-data:/data/database/ -v osm-tiles:/data/tiles/ simomett/overv-osm-tile-server import
 
