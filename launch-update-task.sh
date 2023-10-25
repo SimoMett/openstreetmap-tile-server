@@ -9,6 +9,4 @@ if [ -z "$TILE_SERVER_CONTAINER" ] ; then
       exit 1
 fi
 
-echo $TILE_SERVER_CONTAINER
-exit 0
 docker exec -it $TILE_SERVER_CONTAINER bash autoimport-updates.sh updates.osc.gz
