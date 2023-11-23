@@ -1,4 +1,4 @@
-TILE_SERVER_CONTAINER=$(docker ps -qf ancestor=openstreetmap-tile-server_map)
+TILE_SERVER_CONTAINER=$(docker ps -qf ancestor="osm-for-snap4city-map")
 
 if [ -z "$TILE_SERVER_CONTAINER" ] ; then
 	TILE_SERVER_CONTAINER=$(docker ps -qf ancestor=openstreetmap-tile-server-map)
@@ -10,3 +10,4 @@ if [ -z "$TILE_SERVER_CONTAINER" ] ; then
 fi
 
 docker exec -it $TILE_SERVER_CONTAINER bash autoimport-updates.sh updates.osc.gz
+echo "$(date -u +%Y-%m-%d_%H:%M:%S)" > last-update.txt
