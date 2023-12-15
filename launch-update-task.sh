@@ -1,7 +1,7 @@
 TILE_SERVER_CONTAINER=$(docker ps -qf ancestor="osm-for-snap4city-map")
 
 if [ -z "$TILE_SERVER_CONTAINER" ] ; then
-	TILE_SERVER_CONTAINER=$(docker ps -qf ancestor=openstreetmap-tile-server-map)
+	TILE_SERVER_CONTAINER=$(docker ps -qf ancestor="osm-for-snap4city_map")
 fi
 
 if [ -z "$TILE_SERVER_CONTAINER" ] ; then
